@@ -15,9 +15,10 @@ export function Home() {
         setIsLoading(false);
       });
     });
+    window.scrollTo(0, 0);
   }, []);
   return (
-    <>
+    <div className="container">
       <div className="content__top">
         <Categories />
         <Sort />
@@ -30,6 +31,6 @@ export function Home() {
               <PizzaBlock key={obj.id + index} {...obj} />
             ))}
       </div>
-    </>
+    </div>
   );
 }
