@@ -7,7 +7,11 @@
     align-items: center;
 
     svg {
+      cursor: pointer;
       margin-right: 8px;
+      &.desc {
+        transform: rotate(180deg);
+      }
     }
 
     b {
