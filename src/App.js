@@ -1,7 +1,10 @@
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+
 import { Header } from "./components/Header";
-import { Categories } from "./components/Categories";
-import { Sort } from "./components/Sort";
-import { PizzaBlock } from "./components/PizzaBlock";
+import { Home } from "./pages/Home";
+import { Cart } from "./pages/Cart";
+import { NotFound } from "./pages/NotFound";
 
 import "./scss/app.scss";
 
@@ -12,14 +15,11 @@ export function App() {
         <Header />
         <div className="content">
           <div className="container">
-            <div className="content__top">
-              <Categories />
-              <Sort />
-            </div>
-            <h2 className="content__title">Все пиццы</h2>
-            <div className="content__items">
-              <PizzaBlock title="Мексиканская" price={500} />
-            </div>
+            <Routes>
+              <Route path="" element={<Home />} />
+              <Route path="cart" element={<Cart />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
           </div>
         </div>
       </div>
