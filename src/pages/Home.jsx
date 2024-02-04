@@ -1,26 +1,35 @@
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+
+import { setCategoryId } from "../redux/slices/filterSlice";
 
 import { Categories } from "../components/Categories";
 import { Sort } from "../components/Sort";
 import { PizzaBlock } from "../components/PizzaBlock";
 import { Skeleton } from "../components/PizzaBlock/Skeleton";
+import { Pagination } from "../components/Pagination";
 
-export function Home() {
+export function Home({ searchValue }) {
+  const dispatch = useDispatch();
+  const { categoryId, sort } = useSelector((state) => state.filter);
+
+  const onChangeCategory = (id) => {
+    dispatch(setCategoryId(id));
+  };
+
   const [pizzas, setPizzas] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
-  const [categoryId, setCategoryId] = React.useState(1);
-  const [sortType, setSortType] = React.useState({
-    name: "популярности",
-    sortProperty: "rating",
-  });
+  const [currentPage, setCurrentPage] = React.useState(1);
   const [sortAscDesc, setSortAscDesc] = React.useState(true);
 
   React.useEffect(() => {
     setIsLoading(true);
     fetch(
-      `https://65bd679cb51f9b29e93367d0.mockapi.io/items?${
+      `https://65bd679cb51f9b29e93367d0.mockapi.io/items?page=${currentPage}&limit=4&${
         categoryId > 0 ? `category=${categoryId}` : ""
-      }&sortBy=${sortType.sortProperty}&order=${sortAscDesc ? "asc" : "desc"}`
+      }&sortBy=${sort.sortProperty}&order=${sortAscDesc ? "asc" : "desc"}${
+        searchValue ? `&search=${searchValue}` : ""
+      }`
     ).then((res) => {
       res.json().then((json) => {
         setPizzas(json);
@@ -28,29 +37,32 @@ export function Home() {
       });
     });
     window.scrollTo(0, 0);
-  }, [categoryId, sortType, sortAscDesc]);
+  }, [categoryId, sort.sortProperty, sortAscDesc, searchValue, currentPage]);
+
+  const arrSkeletons = [...new Array(4)].map((_, index) => (
+    <Skeleton key={index} />
+  ));
+  const arrPizzas = pizzas.map((obj, index) => (
+    <PizzaBlock key={obj.id} {...obj} />
+  ));
+
   return (
     <div className="container">
       <div className="content__top">
         <Categories
           activeIndex={categoryId}
-          setActiveIndex={(id) => setCategoryId(id)}
+          setActiveIndex={onChangeCategory}
         />
         <Sort
           sortAscDesc={sortAscDesc}
           setSortAscDesc={(i) => setSortAscDesc(i)}
-          selected={sortType}
-          setSelected={(obj) => setSortType(obj)}
         />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
-        {isLoading
-          ? [new Array(6)].map((_, index) => <Skeleton key={index} />)
-          : pizzas.map((obj, index) => (
-              <PizzaBlock key={obj.id + index} {...obj} />
-            ))}
+        {isLoading ? arrSkeletons : arrPizzas}
       </div>
+      <Pagination onChangePage={(number) => setCurrentPage(number)} />
     </div>
   );
 }

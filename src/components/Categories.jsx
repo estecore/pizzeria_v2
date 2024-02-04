@@ -14,7 +14,7 @@ export function Categories({ activeIndex, setActiveIndex }) {
       <ul>
         {categories.map((val, index) => (
           <li
-            key={index + val}
+            key={val + index}
             onClick={() => setActiveIndex(index)}
             className={activeIndex === index ? "active" : ""}
           >

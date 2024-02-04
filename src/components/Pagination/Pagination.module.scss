@@ -1,0 +1,36 @@
+.root {
+  li {
+    display: inline-block;
+
+    a {
+      opacity: 0.4;
+      user-select: none;
+      cursor: pointer;
+      text-align: center;
+      width: 42px;
+      height: 42px;
+      line-height: 40px;
+      border: 2px solid rgb(236, 61, 61);
+      border-radius: 30px;
+      margin-right: 10px;
+      display: inline-block;
+      color: rgb(236, 61, 61);
+
+      &:hover {
+        opacity: 1;
+        background: rgb(236, 61, 61);
+        color: #fff;
+      }
+    }
+  }
+
+  :global {
+    .selected {
+      a {
+        opacity: 1;
+        background: rgb(236, 61, 61);
+        color: #fff;
+      }
+    }
+  }
+}
