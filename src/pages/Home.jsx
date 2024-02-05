@@ -11,12 +11,15 @@ import {
 } from "../redux/slices/filterSlice";
 
 import { Categories } from "../components/Categories";
-import { Sort } from "../components/Sort";
+import { Sort, list } from "../components/Sort";
 import { PizzaBlock } from "../components/PizzaBlock";
 import { Skeleton } from "../components/PizzaBlock/Skeleton";
 import { Pagination } from "../components/Pagination";
 
 export function Home({ searchValue }) {
+  const isSearch = React.useRef(false);
+  const isMounted = React.useRef(false);
+
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -36,18 +39,8 @@ export function Home({ searchValue }) {
   const [isLoading, setIsLoading] = React.useState(true);
   const [sortAscDesc, setSortAscDesc] = React.useState(true);
 
-  // React.useEffect(() => {
-  //   if (window.location.search) {
-  //     const params = qs.parse(window.location.search.substring(1));
-  //     dispatch(
-  //       setFilters({
-  //         ...params,
-  //       })
-  //     );
-  //   }
-  // }, []);
-
-  React.useEffect(() => {
+  // axios get pizzas from backend
+  const fetchPizzas = () => {
     setIsLoading(true);
     axios
       .get(
@@ -61,17 +54,47 @@ export function Home({ searchValue }) {
         setPizzas(res.data);
         setIsLoading(false);
       });
-    window.scrollTo(0, 0);
+  };
+
+  // if was the first render, check the URL-parameters and save it in redux
+  React.useEffect(() => {
+    if (window.location.search) {
+      const params = qs.parse(window.location.search.substring(1));
+
+      const sort = list.find((obj) => obj.sortProperty === params.sortProperty);
+
+      dispatch(
+        setFilters({
+          ...params,
+          sort,
+        })
+      );
+      isSearch.current = true;
+    }
+  }, []);
+
+  // if was the first render and changed parametrs, need to add URL-parameters
+  React.useEffect(() => {
+    if (isMounted.current) {
+      const queryString = qs.stringify({
+        sortProperty: sort.sortProperty,
+        categoryId,
+        currentPage,
+      });
+      navigate(`?${queryString}`);
+    }
+    isMounted.current = true;
   }, [categoryId, sort.sortProperty, sortAscDesc, searchValue, currentPage]);
 
-  // React.useEffect(() => {
-  //   const queryString = qs.stringify({
-  //     sortProperty: sort.sortProperty,
-  //     categoryId,
-  //     currentPage,
-  //   });
-  //   navigate(`?${queryString}`);
-  // }, [categoryId, sort.sortProperty, sortAscDesc, searchValue, currentPage]);
+  // if was the first render, get pizzas
+  React.useEffect(() => {
+    if (isSearch.current) {
+      fetchPizzas();
+    }
+
+    isSearch.current = false;
+    window.scrollTo(0, 0);
+  }, [categoryId, sort.sortProperty, sortAscDesc, searchValue, currentPage]);
 
   const arrSkeletons = [...new Array(4)].map((_, index) => (
     <Skeleton key={index} />
