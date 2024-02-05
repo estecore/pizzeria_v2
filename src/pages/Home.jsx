@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setCategoryId } from "../redux/slices/filterSlice";
 
 import { Categories } from "../components/Categories";
-import { Sort, list } from "../components/Sort";
+import { Sort } from "../components/Sort";
 import { PizzaBlock } from "../components/PizzaBlock";
 import { Skeleton } from "../components/PizzaBlock/Skeleton";
 import { Pagination } from "../components/Pagination";
