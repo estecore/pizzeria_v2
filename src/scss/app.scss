@@ -260,6 +260,9 @@ body {
         }
       }
     }
+
+    @media (max-width: 900px) {
+    }
   }
 
   &__bottom {
@@ -328,7 +331,7 @@ body {
 
   &--empty {
     margin: 80px auto;
-    width: 560px;
+    width: 80%;
     text-align: center;
 
     h2 {
@@ -344,7 +347,7 @@ body {
       color: #777777;
     }
 
-    icon {
+    span {
       position: relative;
       top: 2px;
     }
@@ -353,6 +356,10 @@ body {
       display: block;
       width: 300px;
       margin: 45px auto 60px;
+
+      @media (max-width: 500px) {
+        width: 100%;
+      }
     }
 
     .button--black {
@@ -361,6 +368,10 @@ body {
       margin: 0 auto;
       font-weight: 600;
       font-size: 18px;
+
+      @media (max-width: 500px) {
+        width: 100%;
+      }
     }
   }
 }

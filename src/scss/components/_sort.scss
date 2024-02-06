@@ -5,6 +5,7 @@
   &__label {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
 
     svg {
       cursor: pointer;
