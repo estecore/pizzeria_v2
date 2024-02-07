@@ -3,8 +3,8 @@ import { SearchContext } from "../../App";
 
 import styles from "./Search.module.scss";
 
-export function Search() {
-  const { searchValue, setSearchValue } = React.useContext(SearchContext);
+export const Search: React.FC = () => {
+  const { searchValue, setSearchValue } = React.useContext<any>(SearchContext);
 
   return (
     <div className={styles.input_wrapper}>
@@ -37,4 +37,4 @@ export function Search() {
       )}
     </div>
   );
-}
+};

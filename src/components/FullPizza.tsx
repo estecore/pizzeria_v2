@@ -2,7 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-export function FullPizza() {
+export const FullPizza: React.FC = () => {
   const [pizza, setPizza] = React.useState<{
     imageUrl: string;
     title: string;
@@ -38,4 +38,4 @@ export function FullPizza() {
       <h4>{pizza.price}</h4>
     </div>
   );
-}
+};

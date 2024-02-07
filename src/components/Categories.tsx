@@ -1,6 +1,12 @@
-import React from "react";
+type CategoriesProps = {
+  activeIndex: number;
+  setActiveIndex: any;
+};
 
-export function Categories({ activeIndex, setActiveIndex }) {
+export const Categories: React.FC<CategoriesProps> = ({
+  activeIndex,
+  setActiveIndex,
+}) => {
   const categories = [
     "Все",
     "Мясные",
@@ -24,4 +30,4 @@ export function Categories({ activeIndex, setActiveIndex }) {
       </ul>
     </div>
   );
-}
+};

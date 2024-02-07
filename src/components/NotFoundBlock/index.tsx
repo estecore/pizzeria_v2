@@ -1,6 +1,6 @@
 import styles from "./NotFoundBlock.module.scss";
 
-export function NotFoundBlock() {
+export const NotFoundBlock: React.FC = () => {
   return (
     <div className={styles.root}>
       <span>🥺</span>
@@ -8,4 +8,4 @@ export function NotFoundBlock() {
       <p>К сожалению, данная страница отсутствует в нашем магазине...</p>
     </div>
   );
-}
+};

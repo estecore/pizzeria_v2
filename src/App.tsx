@@ -11,7 +11,7 @@ import "./scss/app.scss";
 
 export const SearchContext = React.createContext({});
 
-export function App() {
+export const App: React.FC = () => {
   const [searchValue, setSearchValue] = React.useState("");
   return (
     <div className="wrapper">
@@ -28,4 +28,4 @@ export function App() {
       </SearchContext.Provider>
     </div>
   );
-}
+};

@@ -10,14 +10,14 @@ import { PizzaBlock } from "../components/PizzaBlock";
 import { Skeleton } from "../components/PizzaBlock/Skeleton";
 import { Pagination } from "../components/Pagination";
 
-export function Home({ searchValue }) {
+export const Home: React.FC = ({ searchValue }: any) => {
   const dispatch = useDispatch();
 
   const { categoryId, sort } = useSelector(selectFilter);
   const { items, status } = useSelector(selectPizzaData);
 
-  const onChangeCategory = (id) => {
-    dispatch(setCategoryId(id));
+  const onChangeCategory = (idx: number) => {
+    dispatch(setCategoryId(idx));
   };
 
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -25,6 +25,7 @@ export function Home({ searchValue }) {
 
   const getPizzas = async () => {
     dispatch(
+      //@ts-ignore
       fetchPizzas({
         currentPage,
         categoryId,
@@ -43,7 +44,9 @@ export function Home({ searchValue }) {
   const arrSkeletons = [...new Array(4)].map((_, index) => (
     <Skeleton key={index} />
   ));
-  const arrPizzas = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
+  const arrPizzas = items.map((obj: any) => (
+    <PizzaBlock key={obj.id} {...obj} />
+  ));
 
   return (
     <div className="container">
@@ -54,7 +57,7 @@ export function Home({ searchValue }) {
         />
         <Sort
           sortAscDesc={sortAscDesc}
-          setSortAscDesc={(i) => setSortAscDesc(i)}
+          setSortAscDesc={(i: boolean) => setSortAscDesc(i)}
         />
       </div>
       <h2 className="content__title">Все пиццы</h2>
@@ -70,7 +73,7 @@ export function Home({ searchValue }) {
         </div>
       )}
 
-      <Pagination onChangePage={(number) => setCurrentPage(number)} />
+      <Pagination onChangePage={(page: number) => setCurrentPage(page)} />
     </div>
   );
-}
+};
