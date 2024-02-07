@@ -17,9 +17,9 @@ export const Home: React.FC<{ searchValue: string }> = ({ searchValue }) => {
   const { categoryId, sort } = useSelector(selectFilter);
   const { items, status } = useSelector(selectPizzaData);
 
-  const onChangeCategory = (idx: number) => {
+  const onChangeCategory = React.useCallback((idx: number) => {
     dispatch(setCategoryId(idx));
-  };
+  }, []);
 
   const [currentPage, setCurrentPage] = React.useState(1);
   const [sortAscDesc, setSortAscDesc] = React.useState(true);

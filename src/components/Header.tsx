@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import logoSvg from "../assets/img/pizza-logo.svg";
@@ -13,6 +13,7 @@ export const Header: React.FC = () => {
     0
   );
 
+  const location = useLocation();
   return (
     <div className="header">
       <div className="container">
@@ -25,7 +26,7 @@ export const Header: React.FC = () => {
             </div>
           </div>
         </Link>
-        <Search />
+        {location.pathname !== "/cart" && <Search />}
         <div className="header__cart">
           <Link to="cart" className="button button--cart">
             <span>{totalPrice} ₽</span>
