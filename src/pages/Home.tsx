@@ -1,17 +1,18 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import { selectFilter, setCategoryId } from "../redux/slices/filterSlice";
 import { fetchPizzas, selectPizzaData } from "../redux/slices/pizzaSlice";
+import { useAppDispatch } from "../redux/store";
 
 import { Categories } from "../components/Categories";
-import { Sort } from "../components/Sort";
+import { SortPopUp } from "../components/SortPopUp";
 import { PizzaBlock } from "../components/PizzaBlock";
 import { Skeleton } from "../components/PizzaBlock/Skeleton";
 import { Pagination } from "../components/Pagination";
 
 export const Home: React.FC<{ searchValue: string }> = ({ searchValue }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const { categoryId, sort } = useSelector(selectFilter);
   const { items, status } = useSelector(selectPizzaData);
@@ -25,7 +26,6 @@ export const Home: React.FC<{ searchValue: string }> = ({ searchValue }) => {
 
   const getPizzas = async () => {
     dispatch(
-      //@ts-ignore
       fetchPizzas({
         currentPage,
         categoryId,
@@ -55,7 +55,7 @@ export const Home: React.FC<{ searchValue: string }> = ({ searchValue }) => {
           activeIndex={categoryId}
           setActiveIndex={onChangeCategory}
         />
-        <Sort
+        <SortPopUp
           sortAscDesc={sortAscDesc}
           setSortAscDesc={(i: boolean) => setSortAscDesc(i)}
         />

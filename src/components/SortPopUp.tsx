@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { selectSort, setSort } from "../redux/slices/filterSlice";
+import { Sort, selectSort, setSort } from "../redux/slices/filterSlice";
 
 type SortItem = {
   name: string;
@@ -18,13 +18,16 @@ export const list: SortItem[] = [
   { name: "алфавиту", sortProperty: "alphabet" },
 ];
 
-export const Sort: React.FC<SortProps> = ({ sortAscDesc, setSortAscDesc }) => {
+export const SortPopUp: React.FC<SortProps> = ({
+  sortAscDesc,
+  setSortAscDesc,
+}) => {
   const sortRef = React.useRef<HTMLDivElement>(null);
 
   const dispatch = useDispatch();
   const sort = useSelector(selectSort);
 
-  const onClickListItem = (obj: SortItem) => {
+  const onClickListItem = (obj: Sort) => {
     dispatch(setSort(obj));
     setOpen(false);
   };
@@ -67,7 +70,7 @@ export const Sort: React.FC<SortProps> = ({ sortAscDesc, setSortAscDesc }) => {
           <ul>
             {list.map((obj, index) => (
               <li
-                onClick={() => onClickListItem(obj)}
+                onClick={() => onClickListItem(obj as Sort)}
                 className={
                   sort.sortProperty === obj.sortProperty ? "active" : ""
                 }
