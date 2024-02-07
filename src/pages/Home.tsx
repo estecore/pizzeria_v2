@@ -10,7 +10,7 @@ import { PizzaBlock } from "../components/PizzaBlock";
 import { Skeleton } from "../components/PizzaBlock/Skeleton";
 import { Pagination } from "../components/Pagination";
 
-export const Home: React.FC = ({ searchValue }: any) => {
+export const Home: React.FC<{ searchValue: string }> = ({ searchValue }) => {
   const dispatch = useDispatch();
 
   const { categoryId, sort } = useSelector(selectFilter);

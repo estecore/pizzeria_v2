@@ -9,7 +9,7 @@ type SortItem = {
 };
 type SortProps = {
   sortAscDesc: boolean;
-  setSortAscDesc: any;
+  setSortAscDesc: (i: boolean) => void;
 };
 
 export const list: SortItem[] = [
@@ -32,8 +32,8 @@ export const Sort: React.FC<SortProps> = ({ sortAscDesc, setSortAscDesc }) => {
   const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
-    const handleClickOutside = (event: any) => {
-      if (!event.composedPath().includes(sortRef.current)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (sortRef.current && !event.composedPath().includes(sortRef.current)) {
         setOpen(false);
       }
     };

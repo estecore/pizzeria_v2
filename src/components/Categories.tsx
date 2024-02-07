@@ -1,6 +1,6 @@
 type CategoriesProps = {
   activeIndex: number;
-  setActiveIndex: any;
+  setActiveIndex: (i: number) => void;
 };
 
 export const Categories: React.FC<CategoriesProps> = ({
