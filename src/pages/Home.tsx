@@ -1,15 +1,17 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-import { selectFilter, setCategoryId } from "../redux/slices/filterSlice";
-import { fetchPizzas, selectPizzaData } from "../redux/slices/pizzaSlice";
 import { useAppDispatch } from "../redux/store";
+import { selectFilter } from "../redux/filter/selectors";
+import { setCategoryId } from "../redux/filter/slice";
+import { selectPizzaData } from "../redux/pizza/selectors";
 
 import { Categories } from "../components/Categories";
 import { SortPopUp } from "../components/SortPopUp";
 import { PizzaBlock } from "../components/PizzaBlock";
 import { Skeleton } from "../components/PizzaBlock/Skeleton";
 import { Pagination } from "../components/Pagination";
+import { fetchPizzas } from "../redux/pizza/asyncActions";
 
 export const Home: React.FC<{ searchValue: string }> = ({ searchValue }) => {
   const dispatch = useAppDispatch();
