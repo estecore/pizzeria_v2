@@ -6,22 +6,16 @@ import { Home } from "./pages/Home";
 
 import "./scss/app.scss";
 
-//
-//
-// ==================== TODO:  fullPizza and cart fullPizza
-//
-//
-
 export const SearchContext = React.createContext({});
 
 const FullPizz: any = React.lazy(
-  () => import(/* webpackChunkName "FullPizza" */ "./pages/FullPizza")
+  () => import(/* webpackChunkName: "FullPizza" */ "./pages/FullPizza")
 );
 const Cart: any = React.lazy(
-  () => import(/* webpackChunkName "Cart" */ "./pages/Cart")
+  () => import(/* webpackChunkName: "Cart" */ "./pages/Cart")
 );
 const NotFound: any = React.lazy(
-  () => import(/* webpackChunkName "NotFound" */ "./pages/NotFound")
+  () => import(/* webpackChunkName: "NotFound" */ "./pages/NotFound")
 );
 
 export const App: React.FC = () => {
@@ -43,6 +37,14 @@ export const App: React.FC = () => {
             />
             <Route
               path="pizza/:id"
+              element={
+                <Suspense fallback={<div>Идёт загрузка питсы...</div>}>
+                  <FullPizz />
+                </Suspense>
+              }
+            />
+            <Route
+              path="cart/pizza/:id"
               element={
                 <Suspense fallback={<div>Идёт загрузка питсы...</div>}>
                   <FullPizz />

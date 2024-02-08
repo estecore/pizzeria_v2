@@ -32,14 +32,18 @@ const FullPizza: React.FC = () => {
   }
   return (
     <div className="container">
-      <h3>Не смотрите, данный раздел ещё в разработке...</h3>
-      <img src={pizza.imageUrl} alt="pizza" />
-      <h2>{pizza.title}</h2>
-      <h4>{pizza.price}</h4>
-
-      <Link to="/" className="button button--outline button--add go-back-btn">
-        <span>Вернуться назад</span>
-      </Link>
+      <div className="full_pizza">
+        <img src={pizza.imageUrl} alt="pizza" />
+        <h2>{pizza.title}</h2>
+        <h4>{pizza.price} ₽</h4>
+        <p>
+          Здесь должно было быть описание, ингридиенты, калорийность..но backend
+          мне его не дал(((
+        </p>
+        <Link to="/" className="button button--outline button--add go-back-btn">
+          <span>Вернуться назад</span>
+        </Link>
+      </div>
     </div>
   );
 };
